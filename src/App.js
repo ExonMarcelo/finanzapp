@@ -11,7 +11,9 @@ import Header from './components/Templates/Header/Header';
 function App() {
   return (
     <>
-    <Header/>
+      <header style={{position: "fixed", width: "100%"}}>
+        <Header/>
+      </header>
       <Provider store={store}>
         <Router history={history}>
           <Switch>

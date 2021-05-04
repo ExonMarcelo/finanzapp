@@ -1,0 +1,22 @@
+.div-ingresos{
+    border-radius: 10px;
+    background-color: #cdf7cd;
+    padding: 5px;
+}
+
+.div-egresos{
+    border-radius: 10px;
+    background-color: #ffe0e0;
+    padding: 5px;
+}
+
+.cards{
+    text-align: center;
+    width: 350px;
+}
+
+@media (min-width: 480px) {
+    .cards{
+        width: 450px;
+    }
+}
