@@ -12,4 +12,14 @@ export const generateAmounts = (aData) =>{
     }
 };
 
-export const formatNumber = (value) => value.toLocaleString();
+//export const formatNumber = (value) => value.toLocaleString();
+
+export const formatAmount = (n, currency, decimal) => {
+    n = parseFloat(n);
+    currency = (currency === undefined) ? "" : currency;
+    decimal = (decimal === undefined) ? 0 : decimal;
+
+    return n.toFixed(decimal).replace(/./g, function(c, i, a) {
+        return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+    }) + " " + currency;
+};

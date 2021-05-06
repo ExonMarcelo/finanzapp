@@ -9,9 +9,11 @@ import "./Main.css";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import {Paper, Tabs, Tab, Box, List, Divider} from '@material-ui/core';
-import { makeStyles } from "@material-ui/core/styles";
+import {Paper, Tabs, Tab, Box, List, ListSubheader, Divider, IconButton, Button, CardHeader, Menu, MenuItem} from '@material-ui/core';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+//import Zoom from '@material-ui/core/Zoom';
+//import Fab from '@material-ui/core/Fab';
 
 //icons
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -23,6 +25,8 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+//import AddIcon from '@material-ui/icons/Add';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 //import templates components
 import ListItemWithAvatarAndButton from "../../Templates/ListItemWithAvatarAndButton/ListItemWithAvatarAndButton";
@@ -31,7 +35,10 @@ import ListItemWithAvatarAndButton from "../../Templates/ListItemWithAvatarAndBu
 import dataTempMain  from "../../../helpers/dataMain";
 
 //import functions globals
-import {formatNumber}  from "../../../helpers/globalFunctions";
+import {formatAmount}  from "../../../helpers/globalFunctions";
+
+//import dialogs
+import NewMovement from "./NewMovement";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,6 +61,12 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'nowrap',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
+  },
+
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing(3),
+    right: theme.spacing(2),
   },
 }));
 
@@ -130,7 +143,26 @@ function Main(props) {
   const {amountBalance, amountIncome, amountExpenses} = props;
   
   const classes = useStyles();
+  const theme = useTheme();
+
+  const transitionDuration = {
+    enter: theme.transitions.duration.enteringScreen,
+    exit: theme.transitions.duration.leavingScreen,
+  };
+
   const [value, setValue] = React.useState(0);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const [openDialogNewMovement, setOpenDialogNewMovement] = React.useState(false);
+  const [typeMovement, setTypeMovement] = React.useState("");
+  
+  const fnOpenDialogNewMovement = function(){
+    setOpenDialogNewMovement(true);
+  }
+
+  const fnCloseDialogNewMovement = function(){
+    setOpenDialogNewMovement(false);
+  }
   
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -141,6 +173,20 @@ function Main(props) {
   
     dispatch(changeAmountBalance(newAmount));
   };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const fnShowNewMovement = (typeMovement) => {
+    handleClose();
+    setTypeMovement(typeMovement);
+    fnOpenDialogNewMovement();
+  }
 
   /*useEffect(() => {
     setTimeout(() => {
@@ -166,26 +212,24 @@ function Main(props) {
                         <Typography variant="h6"  color="primary"><b>Balance</b></Typography>
                       </div>
                       
-                      <Typography variant="h4" color="primary"><b>{amountBalance} USD</b></Typography>
+                      <Typography variant="h4" color="primary"><b>{formatAmount(amountBalance, "USD", 2)} </b></Typography>
 
                       <div style={{display:"inline-flex", marginTop:"10px", width:"250px", justifyContent:"space-between"}}>
                         <div className="div-ingresos">
-                          <Typography color="primary"><b>{amountIncome} USD</b></Typography>
+                          <Typography color="primary"><b>{formatAmount(amountIncome, "USD", 2)}</b></Typography>
                           <div style={{display:"inline-flex"}}>
-                            <AddCircleOutlineIcon color="primary" style={{paddingRight:"5px"}}/>
+                            <AddCircleOutlineIcon color="primary"/>
                             <Typography color="primary"><b>Ingresos</b></Typography>
                           </div>
                         </div>
                         
                         <div className="div-egresos">
-                          <Typography color="error"><b>{amountExpenses} USD</b></Typography>
+                          <Typography color="error"><b>{formatAmount(amountExpenses, "USD", 2)}</b></Typography>
                           <div style={{display:"inline-flex"}}>
-                            <RemoveCircleOutlineIcon color="error" style={{paddingRight:"5px"}}/>
+                            <RemoveCircleOutlineIcon color="error"/>
                             <Typography color="error"><b>Gastos</b></Typography>
                           </div>
                         </div>
-                        
-                        
                       </div>
                     </CardContent>
                 </Card>
@@ -195,16 +239,53 @@ function Main(props) {
       </Grid>
 
       <Grid container justify="center"
-          alignItems="center" spacing={2} style={{marginTop:"2rem"}}>
+          alignItems="center" spacing={2} style={{marginTop:"1rem"}}>
         
           <Grid item>
 
             <Paper style={{borderRadius:"10px"}}>
               
                 <Card className="cards" style={{borderRadius:"10px"}}>
+                    {/*<CardHeader>
+                      <Typography variant="h6" color="primary" dir="right"><b>Movimientos</b></Typography>
+                    </CardHeader>*/}
+                    <CardHeader
+                      action={
+                        <>
+                          <IconButton 
+                            aria-label="options"
+                            aria-controls="menuMovements"
+                            aria-haspopup="true"
+                            onClick={handleMenu}
+                            color="inherit" >
+                            <MoreVertIcon />
+                          </IconButton>
+                          <Menu
+                            id="menuMovements"
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                            open={open}
+                            onClose={handleClose}
+                          >
+                            <MenuItem onClick={() => fnShowNewMovement("income")}>Agregar ingreso</MenuItem>
+                            <MenuItem onClick={() => fnShowNewMovement("expenses")}>Agregar gasto</MenuItem>
+                          </Menu>
+                        </>
+                      }
+                      title="Movimientos"
+                    />
                     <CardContent>
-                    <Typography variant="h6" color="primary" dir="right"><b>Movimientos</b></Typography>
-
+                    
+                    
+                    
                     <Tabs
                       value={value}
                       onChange={handleChange}
@@ -222,7 +303,7 @@ function Main(props) {
                             <ListItemWithAvatarAndButton
                               iconAvatar={generateIconAvatarIncome(item.category)}
                               textPrimary={`${item.description}`}
-                              textSecondary={`${item.amount} USD - ${item.date}`}
+                              textSecondary={`${formatAmount(item.amount, "USD", 2)} - ${item.date}`}
                               iconAction={<DeleteIcon />}
                               callback={() => alert("item press")}
                             />
@@ -238,7 +319,7 @@ function Main(props) {
                             <ListItemWithAvatarAndButton
                               iconAvatar={generateIconAvatarExpenses(item.category)}
                               textPrimary={`${item.description}`}
-                              textSecondary={`${item.amount} USD - ${item.date}`}
+                              textSecondary={`${formatAmount(item.amount, "USD", 2)} - ${item.date}`}
                               iconAction={<DeleteIcon />}
                               callback={() => alert("item press")}
                             />
@@ -247,6 +328,9 @@ function Main(props) {
                         ))}
                       </List>
                     </TabPanel>
+
+                    
+
                     </CardContent>
                 </Card>
             </Paper>
@@ -254,8 +338,24 @@ function Main(props) {
         
       </Grid>
 
-      
-    
+      <NewMovement 
+          open={openDialogNewMovement}
+          onOpen={fnOpenDialogNewMovement}
+          onClose={fnCloseDialogNewMovement}
+          type={typeMovement}/>
+
+      {/*<Zoom
+        in={1}
+        timeout={transitionDuration}
+        style={{
+          transitionDelay: `${transitionDuration.exit}ms`,
+        }}
+        unmountOnExit
+      >
+        <Fab aria-label="Agregar" className={classes.fab} color="primary">
+          <AddIcon/>
+        </Fab>
+      </Zoom>*/}
     </div>
   );
 }
