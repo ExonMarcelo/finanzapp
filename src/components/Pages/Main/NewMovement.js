@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { useForm, Controller } from 'react-hook-form';
 import { showSuccessDialog, showErrorDialog } from "../../../redux/actions/global";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -43,13 +44,26 @@ function NewMovement(props) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
+  //const { register, handleSubmit, formState: { errors } } = useForm();
+  const { handleSubmit, control } = useForm();
+  
   const [description, setDescription] = useState({key:"description", value:"", error: false, helperText:""});
+  const [description2, setDescription2] = useState("");
   const [category, setCategory] = useState({key:"category", value:"", error: false, helperText:""});
   const [amount, setAmount] = useState({key:"amount", value:0.00, error: false, helperText:""});
   const [date, setDate] = useState({key:"date", value:"", error: false, helperText:""});
 
+  const onSubmit = data => {
+    console.log(data);
+  }
+  /*debugger;
+  console.log("errors---");
+  console.log(errors);*/
+  
+
   function handleChange(e) {
-    const keyName = e.target.name;
+    setDescription2(e.target.value);
+    /*const keyName = e.target.name;
     switch (keyName) {
       case "description":
         setDescription({...description, value: e.target.value});
@@ -69,7 +83,7 @@ function NewMovement(props) {
     
       default:
         break;
-    }
+    }*/
     //setName(e.target.value);
     /*setData({
       ...data,
@@ -149,6 +163,17 @@ function NewMovement(props) {
     return (errorFields === 0)? true : false;
   };
 
+  const handleSave = (type) => {
+    if(type === "income"){
+      if(!validForm(type)){
+        return;
+      }
+      alert("registrar ingeso")
+    }else{
+      alert("registrar gasto")
+    }
+  }
+
 
   return (
     <Dialog
@@ -169,7 +194,13 @@ function NewMovement(props) {
           Este movimiento se agregará a tus {type==="income"?"ingresos":"gastos"}
         </DialogContentText>
 
-        <form noValidate autoComplete="off">
+        {/*<form noValidate autoComplete="off">*/}
+        <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+        name="description"
+        control={control}
+        defaultValue=""
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
           <TextField
             style={styleInputs}
             label="Descripción"
@@ -177,11 +208,15 @@ function NewMovement(props) {
             variant="outlined"
             autoFocus
             fullWidth
-            value={description.value}
-            error={description.error}
-            helperText={description.helperText}
-            onChange={(e) => handleChange(e)}
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error ? error.message : null}
           />
+        )}
+        rules={{ required: 'El campo descripción es obligatorio.', maxLength: {value:3, message:"El texto no debe ser mayor a 3 caracteres."} }}
+      />
+          
 
           <TextField
             style={styleInputs}
@@ -235,47 +270,47 @@ function NewMovement(props) {
             }
           </TextField>
           
-          {/*<FormControl variant="outlined" fullWidth>
-            <InputLabel id="categoryLabel">Categoría</InputLabel>
-            <Select
-              labelId="categoryLabel"
-              id="category"
-              name="category"
-              label="Categoría"
-              value={category.value}
-              error={category.error}
-              onChange={handleChange}
-            >
-              <MenuItem value="">
-                <em>Selecciona una opción</em>
-              </MenuItem>
-              {
-                type==="income"?
-                (
-                  dataTempMain.typeIncome.map((item) => <MenuItem key={item.id} value={item.id}>{item.description}</MenuItem>)
-                ):(
-                  dataTempMain.typeExpenses.map((item) => <MenuItem key={item.id} value={item.id}>{item.description}</MenuItem>)
-                )
-              }
-            </Select>
-            </FormControl>*/}
-
           <TextField
-            style={styleInputs}
-            label="Fecha y hora"
-            name="date"
+            id="date"
+            label="Fecha"
+            type="date"
             variant="outlined"
-            fullWidth
-            value={date.value}
+            defaultValue={date.value}
             error={date.error}
             helperText={date.helperText}
             onChange={(e) => handleChange(e)}
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            
           />
+
+      <Controller
+        name="firstName"
+        control={control}
+        defaultValue=""
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
+          <TextField
+            label="First Name"
+            variant="filled"
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error ? error.message : null}
+          />
+        )}
+        rules={{ required: 'First name required', maxLength: {value:2, message:"El texto no deb ser mayor a 2 caracteres"} }}
+      />
+
+        <Button type="submit" id="btnSubmit" style={{display:"none"}}>
+          Signup
+        </Button>
         </form>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>Cancelar</Button>
-        <Button onClick={()=> alert("guardar")} variant="contained" color="primary">
+        <Button onClick={() => {document.getElementById("btnSubmit").click()}} variant="contained" color="primary">
           Registar
         </Button>
       </DialogActions>
