@@ -6,6 +6,8 @@ import store from './redux/store';
 import Main from './components/Pages/Main/Main';
 import history from './helpers/history';
 import Header from './components/Templates/Header/Header';
+import SuccessDialog from './components/Templates/Dialogs/SuccessDialog';
+import ErrorDialog from './components/Templates/Dialogs/ErrorDialog';
 
 
 function App() {
@@ -25,10 +27,10 @@ function App() {
             </Switch>
           
         </Router>
-        {/*<Backdrop />
+        {/*<Backdrop />*/}
 
         <SuccessDialog />
-        <ErrorDialog />*/}
+        <ErrorDialog />
       </Provider>
     </>
   );

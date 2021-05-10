@@ -12,7 +12,7 @@ export const generateAmounts = (aData) =>{
     }
 };
 
-//export const formatNumber = (value) => value.toLocaleString();
+export const doClick = (element) => document.getElementById(element).click();
 
 export const formatAmount = (n, currency, decimal) => {
     n = parseFloat(n);
@@ -23,3 +23,8 @@ export const formatAmount = (n, currency, decimal) => {
         return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
     }) + " " + currency;
 };
+
+export const formatDateDayToYear = (sDate) => {
+    let myDate = sDate.split("-");
+    return `${myDate[2]}/${myDate[1]}/${myDate[0]} 00:00`;
+}
