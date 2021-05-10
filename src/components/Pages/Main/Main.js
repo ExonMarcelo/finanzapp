@@ -35,7 +35,7 @@ import ListItemWithAvatarAndButton from "../../Templates/ListItemWithAvatarAndBu
 import dataTempMain  from "../../../helpers/dataMain";
 
 //import functions globals
-import {formatAmount}  from "../../../helpers/globalFunctions";
+import {generateAmounts, formatAmount}  from "../../../helpers/globalFunctions";
 
 //import dialogs
 import NewMovement from "./NewMovement";
@@ -140,7 +140,7 @@ const generateIconAvatarExpenses = (category) => {
 
 
 function Main(props) {
-  const {amountBalance, amountIncome, amountExpenses} = props;
+  const { dataTemp, amountBalance, amountIncome, amountExpenses} = props;
   
   const classes = useStyles();
   const theme = useTheme();
@@ -151,6 +151,9 @@ function Main(props) {
   };
 
   const [value, setValue] = React.useState(0);
+  const [incomeList, setIncomeList] = React.useState(dataTemp.income || []);
+  const {balance, totalIncome, totalExpenses} = generateAmounts(dataTemp);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [openDialogNewMovement, setOpenDialogNewMovement] = React.useState(false);
@@ -212,11 +215,11 @@ function Main(props) {
                         <Typography variant="h6"  color="primary"><b>Balance</b></Typography>
                       </div>
                       
-                      <Typography variant="h4" color="primary"><b>{formatAmount(amountBalance, "USD", 2)} </b></Typography>
+                      <Typography variant="h4" color="primary"><b>{formatAmount(balance, "USD", 2)} </b></Typography>
 
                       <div style={{display:"inline-flex", marginTop:"10px", width:"250px", justifyContent:"space-between"}}>
                         <div className="div-ingresos">
-                          <Typography color="primary"><b>{formatAmount(amountIncome, "USD", 2)}</b></Typography>
+                          <Typography color="primary"><b>{formatAmount(totalIncome, "USD", 2)}</b></Typography>
                           <div style={{display:"inline-flex"}}>
                             <AddCircleOutlineIcon color="primary"/>
                             <Typography color="primary"><b>Ingresos</b></Typography>
@@ -224,7 +227,7 @@ function Main(props) {
                         </div>
                         
                         <div className="div-egresos">
-                          <Typography color="error"><b>{formatAmount(amountExpenses, "USD", 2)}</b></Typography>
+                          <Typography color="error"><b>{formatAmount(totalExpenses, "USD", 2)}</b></Typography>
                           <div style={{display:"inline-flex"}}>
                             <RemoveCircleOutlineIcon color="error"/>
                             <Typography color="error"><b>Gastos</b></Typography>
@@ -298,7 +301,7 @@ function Main(props) {
                     </Tabs>
                     <TabPanel value={value} index={0}>
                       <List>
-                        {dataTempMain.income.map(item => (
+                        {incomeList.map(item => (
                           <React.Fragment key={item.id}>
                             <ListItemWithAvatarAndButton
                               iconAvatar={generateIconAvatarIncome(item.category)}
@@ -363,5 +366,6 @@ function Main(props) {
 export default connect((state) => ({
   amountBalance: state.global.amountBalance,
   amountIncome: state.global.amountIncome,
-  amountExpenses: state.global.amountExpenses
+  amountExpenses: state.global.amountExpenses,
+  dataTemp: state.global.dataTemp,
 }))(Main);

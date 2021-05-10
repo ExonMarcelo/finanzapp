@@ -3,6 +3,7 @@ export const SHOW_ERROR_DIALOG = 'SHOW_ERROR_DIALOG';
 export const CHANGE_BALANCE = 'CHANGE_BALANCE';
 export const CHANGE_AMOUNT_INCOME = 'CHANGE_AMOUNT_INCOME';
 export const CHANGE_AMOUNT_EXPENSES = 'CHANGE_AMOUNT_EXPENSES';
+export const CHANGE_DATA_TEMP = 'CHANGE_DATA_TEMP';
 //export const CHANGE_MOBILE_SIDEBAR_VISIBILITY = 'CHANGE_MOBILE_SIDEBAR_VISIBILITY';
 
 export function showSuccessDialog(data) {
@@ -36,6 +37,13 @@ export function changeAmountIncome(data) {
 export function changeAmountExpenses(data) {
   return {
     type: CHANGE_AMOUNT_EXPENSES,
+    payload: data
+  };
+}
+
+export function changeDataTemp(data) {
+  return {
+    type: CHANGE_DATA_TEMP,
     payload: data
   };
 }

@@ -3,14 +3,15 @@ import {
     SHOW_ERROR_DIALOG,
     CHANGE_BALANCE,
     CHANGE_AMOUNT_INCOME,
-    CHANGE_AMOUNT_EXPENSES
+    CHANGE_AMOUNT_EXPENSES,
+    CHANGE_DATA_TEMP
   } from '../actions/global';
 
   //import temporary data
 import dataTempMain  from "../../helpers/dataMain";
-import {generateAmounts}  from "../../helpers/globalFunctions";
+//import {generateAmounts}  from "../../helpers/globalFunctions";
 
-const {balance, totalIncome, totalExpenses} = generateAmounts(dataTempMain);
+//const {balance, totalIncome, totalExpenses} = generateAmounts(dataTempMain);
 
 
   const initialState = {
@@ -26,9 +27,10 @@ const {balance, totalIncome, totalExpenses} = generateAmounts(dataTempMain);
         description: "Ocurrio un error inesperado.",
         fnError: () => {}
     },
-    amountBalance: balance,
-    amountIncome: totalIncome,
-    amountExpenses: totalExpenses,
+    amountBalance: 0,
+    amountIncome: 0,
+    amountExpenses: 0,
+    dataTemp: dataTempMain
   };
   
   export default function (state = initialState, action) {
@@ -43,6 +45,8 @@ const {balance, totalIncome, totalExpenses} = generateAmounts(dataTempMain);
         return { ...state, amountIncome: action.payload };
       case CHANGE_AMOUNT_EXPENSES:
         return { ...state, amountExpenses: action.payload };
+      case CHANGE_DATA_TEMP:
+        return { ...state, dataTemp: action.payload };
       default:
         return state;
     }

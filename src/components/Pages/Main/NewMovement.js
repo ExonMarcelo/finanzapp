@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useForm, Controller } from 'react-hook-form';
-import { showSuccessDialog, showErrorDialog } from "../../../redux/actions/global";
+import { changeDataTemp, showSuccessDialog, showErrorDialog } from "../../../redux/actions/global";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
@@ -34,7 +34,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function NewMovement(props) {
-  const { open, onClose, type } = props;
+  const { open, onClose, type, dataTempMain2 } = props;
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
@@ -56,22 +56,45 @@ function NewMovement(props) {
     dispatch(showErrorDialog(dataForDialog));
   };
 
+  const handleChangeDataTemp = (data) => {
+    const { dispatch } = props;
+    dispatch(changeDataTemp(data));
+  };
+
   const handleSave = (type, data) => {
+    const {dataTemp} = props;
     if(type === "income"){
       showMessage({
         open: true,
         title:"¡Bien!",
         description: "La operación se ha realizado con éxito.",
-        fnSuccess: () => {onClose();}
+        fnSuccess: () => {
+          onClose();
+          const newIncome = dataTemp.income;
+          newIncome.push({
+            id: generateID(dataTemp.income), 
+            description: data.description, 
+            amount: parseInt(data.amount), 
+            date: data.date
+          });
+          const myData = {...dataTemp, income: newIncome};
+          handleChangeDataTemp(myData);
+        }
       })
     }else{
       alert("registrar gasto")
     }
   }
 
+  const generateID = (data) => {
+    const sorted = data.sort((a, b) => a.id - b.id);
+    const lastID = sorted[sorted.length - 1].id;
+    return  lastID + 1;
+  }
+
   const onSubmit = (data) => {
     const myData = {...data, date: formatDateDayToYear(data.date)};
-    handleSave(type, data);
+    handleSave(type, myData);
     //onClose();
   }
 
@@ -217,4 +240,5 @@ function NewMovement(props) {
 export default connect((state) => ({
   dataSuccessDialog: state.global.dataSuccessDialog,
   dataErrorDialog: state.global.dataErrorDialog,
+  dataTemp: state.global.dataTemp
 }))(NewMovement);
