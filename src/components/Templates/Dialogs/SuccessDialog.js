@@ -46,8 +46,8 @@ function SuccessDialog(props) {
     >
       {/*<DialogTitle id="responsive-dialog-title">{title}</DialogTitle>*/}
       <DialogContent style={{ textAlign: "center" }}>
-        <CheckCircleOutlineIcon style={{ color: "#4caf50", fontSize: "3rem" }} />
-        <Typography variant="h6" style={{ color: "#4caf50" }}>
+        <CheckCircleOutlineIcon style={{ color: "#5db35d", fontSize: "3rem" }} />
+        <Typography variant="h6" style={{ color: "#5db35d" }}>
           <b>{title}</b>
         </Typography>
         <DialogContentText style={{marginTop: "12px"}}><b>{description}</b></DialogContentText>
@@ -57,7 +57,7 @@ function SuccessDialog(props) {
           onClick={closeDialog}
           variant="contained"
           fullWidth
-          style={{ backgroundColor: "#4caf50", color:"#fff" }}
+          style={{ backgroundColor: "#5db35d", color:"#fff" }}
         >
           Continuar
         </Button>

@@ -34,12 +34,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function NewMovement(props) {
-  const { open, onClose, type, dataTempMain2 } = props;
+  const { open, onClose, type } = props;
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control, reset } = useForm();
   
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -61,29 +61,42 @@ function NewMovement(props) {
     dispatch(changeDataTemp(data));
   };
 
-  const handleSave = (type, data) => {
-    const {dataTemp} = props;
-    if(type === "income"){
-      showMessage({
-        open: true,
-        title:"¡Bien!",
-        description: "La operación se ha realizado con éxito.",
-        fnSuccess: () => {
-          onClose();
-          const newIncome = dataTemp.income;
-          newIncome.push({
-            id: generateID(dataTemp.income), 
-            description: data.description, 
-            amount: parseInt(data.amount), 
-            date: data.date
-          });
-          const myData = {...dataTemp, income: newIncome};
-          handleChangeDataTemp(myData);
-        }
-      })
-    }else{
-      alert("registrar gasto")
-    }
+  const handleSave = (data, e) => {
+    const {dataTemp, type} = props;
+    showMessage({
+      open: true,
+      title:"¡Bien!",
+      description: `Se agregó un movimiento a tus ${(type === "income")?"ingresos." : "gastos."}`,
+      fnSuccess: () => {
+        const newMovement = dataTemp[type];
+        newMovement.push({
+          id: generateID(dataTemp[type]), 
+          description: data.description, 
+          amount: parseInt(data.amount), 
+          date: data.date
+        });
+        const myData = {...dataTemp, [type]: newMovement};
+        handleChangeDataTemp(myData);
+
+        handleClose();
+        
+      }
+    });
+  }
+
+  const handleClose = () => {
+    onClose();
+    //clear form
+    clearForm();
+  }
+
+  const clearForm = () =>{
+    reset({ 
+      description: "",
+      amount: "",
+      category: "",
+      date: "",
+    });
   }
 
   const generateID = (data) => {
@@ -92,9 +105,9 @@ function NewMovement(props) {
     return  lastID + 1;
   }
 
-  const onSubmit = (data) => {
+  const onSubmit = (data, e) => {
     const myData = {...data, date: formatDateDayToYear(data.date)};
-    handleSave(type, myData);
+    handleSave(myData, e);
     //onClose();
   }
 
@@ -225,10 +238,11 @@ function NewMovement(props) {
           <Button type="submit" id="btnSubmit" style={{display:"none"}}>
             Signup
           </Button>
+          {/*<input type="button" onClick={() => reset({ description: "bill" })} value="reset"/>*/}
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose}>Cancelar</Button>
+        <Button onClick={handleClose}>Cancelar</Button>
         <Button onClick={() => {doClick("btnSubmit")}} variant="contained" color="primary">
           Registar
         </Button>
