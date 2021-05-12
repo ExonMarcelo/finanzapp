@@ -16,7 +16,7 @@ function ListWithAvatarAndButton(props) {
       <List>
       {props.listItems.map(item => (
           <>*/
-            <ListItem key={props.id} onClick={() => props.callback()}>
+            <ListItem key={props.id}>
                 <ListItemAvatar>
                     <Avatar style={{color:"white", backgroundColor:"#3f51b5"}}>
                           {props.iconAvatar}

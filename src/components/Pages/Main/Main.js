@@ -1,15 +1,15 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { changeBalance, changeAmountIncome, changeAmountExpenses } from "../../../redux/actions/global";
+import { changeDataTemp } from "../../../redux/actions/global";
 import PropTypes from 'prop-types';
-import {Link} from "react-router-dom";
+//import {Link} from "react-router-dom";
 import "./Main.css";
 
 //imports from material-ui
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import {Paper, Tabs, Tab, Box, List, ListSubheader, Divider, IconButton, Button, CardHeader, Menu, MenuItem} from '@material-ui/core';
+import {Paper, Tabs, Tab, Box, List, Divider, IconButton, CardHeader, Menu, MenuItem} from '@material-ui/core';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 //import Zoom from '@material-ui/core/Zoom';
@@ -32,7 +32,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ListItemWithAvatarAndButton from "../../Templates/ListItemWithAvatarAndButton/ListItemWithAvatarAndButton";
 
 //import temporary data
-import dataTempMain  from "../../../helpers/dataMain";
+//import dataTempMain  from "../../../helpers/dataMain";
 
 //import functions globals
 import {generateAmounts, formatAmount}  from "../../../helpers/globalFunctions";
@@ -140,18 +140,12 @@ const generateIconAvatarExpenses = (category) => {
 
 
 function Main(props) {
-  const { dataTemp, amountBalance, amountIncome, amountExpenses} = props;
+  const { dataTemp} = props;
   
   const classes = useStyles();
   const theme = useTheme();
 
-  const transitionDuration = {
-    enter: theme.transitions.duration.enteringScreen,
-    exit: theme.transitions.duration.leavingScreen,
-  };
-
   const [value, setValue] = React.useState(0);
-  const [incomeList, setIncomeList] = React.useState(dataTemp.income || []);
   const {balance, totalIncome, totalExpenses} = generateAmounts(dataTemp);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -190,6 +184,21 @@ function Main(props) {
     setTypeMovement(typeMovement);
     fnOpenDialogNewMovement();
   }
+
+  const handleChangeDataTemp = (data) => {
+    const { dispatch } = props;
+    dispatch(changeDataTemp(data));
+  };
+
+  const removeMovement = (type, idMovement) => {
+    const {dataTemp} = props;
+    const movements = dataTemp[type];
+    const newMovements = movements.filter((item) => item.id !== idMovement);
+    const myData = {...dataTemp, [type]: newMovements};
+    handleChangeDataTemp(myData);
+  }
+
+
 
   /*useEffect(() => {
     setTimeout(() => {
@@ -301,14 +310,14 @@ function Main(props) {
                     </Tabs>
                     <TabPanel value={value} index={0}>
                       <List>
-                        {incomeList.map(item => (
+                        {dataTemp.income.map(item => (
                           <React.Fragment key={item.id}>
                             <ListItemWithAvatarAndButton
                               iconAvatar={generateIconAvatarIncome(item.category)}
                               textPrimary={`${item.description}`}
                               textSecondary={`${formatAmount(item.amount, "USD", 2)} - ${item.date}`}
                               iconAction={<DeleteIcon />}
-                              callback={() => alert("item press")}
+                              callback={() => removeMovement("income", item.id)}
                             />
                             <Divider />
                           </React.Fragment>
@@ -317,14 +326,14 @@ function Main(props) {
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                       <List>
-                        {dataTempMain.expenses.map(item => (
+                        {dataTemp.expenses.map(item => (
                           <React.Fragment key={item.id}>
                             <ListItemWithAvatarAndButton
                               iconAvatar={generateIconAvatarExpenses(item.category)}
                               textPrimary={`${item.description}`}
                               textSecondary={`${formatAmount(item.amount, "USD", 2)} - ${item.date}`}
                               iconAction={<DeleteIcon />}
-                              callback={() => alert("item press")}
+                              callback={() => removeMovement("expenses", item.id)}
                             />
                             <Divider />
                           </React.Fragment>
@@ -346,26 +355,13 @@ function Main(props) {
           onOpen={fnOpenDialogNewMovement}
           onClose={fnCloseDialogNewMovement}
           type={typeMovement}/>
-
-      {/*<Zoom
-        in={1}
-        timeout={transitionDuration}
-        style={{
-          transitionDelay: `${transitionDuration.exit}ms`,
-        }}
-        unmountOnExit
-      >
-        <Fab aria-label="Agregar" className={classes.fab} color="primary">
-          <AddIcon/>
-        </Fab>
-      </Zoom>*/}
     </div>
   );
 }
 
 export default connect((state) => ({
-  amountBalance: state.global.amountBalance,
+  /*amountBalance: state.global.amountBalance,
   amountIncome: state.global.amountIncome,
-  amountExpenses: state.global.amountExpenses,
+  amountExpenses: state.global.amountExpenses,*/
   dataTemp: state.global.dataTemp,
 }))(Main);
