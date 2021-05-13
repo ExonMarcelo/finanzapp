@@ -1,10 +1,11 @@
 import {
     SHOW_SUCCESS_DIALOG,
     SHOW_ERROR_DIALOG,
+    SHOW_CONFIRM_DIALOG,
     CHANGE_BALANCE,
     CHANGE_AMOUNT_INCOME,
     CHANGE_AMOUNT_EXPENSES,
-    CHANGE_DATA_TEMP
+    CHANGE_DATA_TEMP,
   } from '../actions/global';
 
   //import temporary data
@@ -27,6 +28,13 @@ import dataTempMain  from "../../helpers/dataMain";
         description: "Ocurrio un error inesperado.",
         fnError: () => {}
     },
+
+    dataConfirmDialog:{
+        open: false,
+        title:"¡Alerta!",
+        description: "¿Esta seguro de realizar esta operación?",
+        fnOK: () => {}
+    },
     amountBalance: 0,
     amountIncome: 0,
     amountExpenses: 0,
@@ -39,6 +47,8 @@ import dataTempMain  from "../../helpers/dataMain";
         return { ...state, dataSuccessDialog: action.payload };
       case SHOW_ERROR_DIALOG:
         return { ...state, dataErrorDialog: action.payload };
+      case SHOW_CONFIRM_DIALOG:
+        return { ...state, dataConfirmDialog: action.payload };
       case CHANGE_BALANCE:
         return { ...state, amountBalance: action.payload };
       case CHANGE_AMOUNT_INCOME:

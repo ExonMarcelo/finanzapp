@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { changeDataTemp } from "../../../redux/actions/global";
+import { changeDataTemp, showConfirmDialog } from "../../../redux/actions/global";
 import PropTypes from 'prop-types';
 //import {Link} from "react-router-dom";
 import "./Main.css";
@@ -189,7 +189,7 @@ function Main(props) {
     const { dispatch } = props;
     dispatch(changeDataTemp(data));
   };
-
+  
   const removeMovement = (type, idMovement) => {
     const {dataTemp} = props;
     const movements = dataTemp[type];
@@ -197,7 +197,23 @@ function Main(props) {
     const myData = {...dataTemp, [type]: newMovements};
     handleChangeDataTemp(myData);
   }
+  
+  const handleShowConfirmDialog = (data) => {
+    const { dispatch } = props;
+    dispatch(showConfirmDialog(data));
+  };
 
+  const confirmRemoveMovement = (type, idMovement) => {
+    const dataConfirmDialog= {
+      open: true,
+      title:"¡Atención!",
+      description: `¿Esta seguro de eliminar este ${(type === "income")? "ingreso" : "gasto" }?`,
+      fnOK: () => {
+        removeMovement(type, idMovement);
+      }
+    };
+    handleShowConfirmDialog(dataConfirmDialog);
+  }
 
 
   /*useEffect(() => {
@@ -317,7 +333,7 @@ function Main(props) {
                               textPrimary={`${item.description}`}
                               textSecondary={`${formatAmount(item.amount, "USD", 2)} - ${item.date}`}
                               iconAction={<DeleteIcon />}
-                              callback={() => removeMovement("income", item.id)}
+                              callback={() => confirmRemoveMovement("income", item.id)}
                             />
                             <Divider />
                           </React.Fragment>
@@ -333,7 +349,7 @@ function Main(props) {
                               textPrimary={`${item.description}`}
                               textSecondary={`${formatAmount(item.amount, "USD", 2)} - ${item.date}`}
                               iconAction={<DeleteIcon />}
-                              callback={() => removeMovement("expenses", item.id)}
+                              callback={() => confirmRemoveMovement("expenses", item.id)}
                             />
                             <Divider />
                           </React.Fragment>

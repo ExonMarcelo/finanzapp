@@ -1,6 +1,6 @@
 //import logo from './logo.svg';
 //import './App.css';
-import { Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import Main from './components/Pages/Main/Main';
@@ -8,6 +8,7 @@ import history from './helpers/history';
 import Header from './components/Templates/Header/Header';
 import SuccessDialog from './components/Templates/Dialogs/SuccessDialog';
 import ErrorDialog from './components/Templates/Dialogs/ErrorDialog';
+import ConfirmDialog from './components/Templates/Dialogs/ConfirmDialog';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
         <Header/>
       </header>
       <Provider store={store}>
-        <Router history={history}>
+        <Router basename={process.env.PUBLIC_URL} history={history}>
           <Switch>
               <Route path="/" exact component={Main} />
               {/*<Route path="/catalogos" exact component={Catalogs} />
@@ -31,6 +32,7 @@ function App() {
 
         <SuccessDialog />
         <ErrorDialog />
+        <ConfirmDialog />
       </Provider>
     </>
   );

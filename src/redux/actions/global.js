@@ -1,5 +1,6 @@
 export const SHOW_SUCCESS_DIALOG = 'SHOW_SUCCESS_DIALOG';
 export const SHOW_ERROR_DIALOG = 'SHOW_ERROR_DIALOG';
+export const SHOW_CONFIRM_DIALOG = 'SHOW_CONFIRM_DIALOG';
 export const CHANGE_BALANCE = 'CHANGE_BALANCE';
 export const CHANGE_AMOUNT_INCOME = 'CHANGE_AMOUNT_INCOME';
 export const CHANGE_AMOUNT_EXPENSES = 'CHANGE_AMOUNT_EXPENSES';
@@ -16,6 +17,13 @@ export function showSuccessDialog(data) {
 export function showErrorDialog(data) {
   return {
     type: SHOW_ERROR_DIALOG,
+    payload: data
+  };
+}
+
+export function showConfirmDialog(data) {
+  return {
+    type: SHOW_CONFIRM_DIALOG,
     payload: data
   };
 }
