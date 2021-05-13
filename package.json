@@ -1,5 +1,5 @@
 {
-  "homepage":"https://exonmarcelo.github.io/finanzapp/",
+  "homepage": "https://exonmarcelo.github.io/finanzapp/",
   "name": "finanzapp",
   "version": "0.1.0",
   "private": true,
@@ -10,9 +10,11 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "history": "^5.0.0",
+    "i18next": "^20.2.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.4.2",
+    "react-i18next": "^11.8.15",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
@@ -24,8 +26,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy":"yarn build",
-    "deploy":"gh-pages -d build"
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

@@ -15,6 +15,9 @@ import Typography from "@material-ui/core/Typography";
 //import Zoom from '@material-ui/core/Zoom';
 //import Fab from '@material-ui/core/Fab';
 
+//import translations
+import {useTranslation} from "react-i18next";
+
 //icons
 import DeleteIcon from "@material-ui/icons/Delete";
 import HomeIcon from '@material-ui/icons/Home';
@@ -152,6 +155,8 @@ function Main(props) {
   const open = Boolean(anchorEl);
   const [openDialogNewMovement, setOpenDialogNewMovement] = React.useState(false);
   const [typeMovement, setTypeMovement] = React.useState("");
+
+  const [t, i18n] = useTranslation("global");//specify file name
   
   const fnOpenDialogNewMovement = function(){
     setOpenDialogNewMovement(true);
@@ -237,7 +242,7 @@ function Main(props) {
                       {/*<HowToVoteIcon color="primary"/>*/}
                       <div style={{display:"inline-flex"}}>
                         <TrendingUpIcon color="primary"/>
-                        <Typography variant="h6"  color="primary"><b>Balance</b></Typography>
+                        <Typography variant="h6"  color="primary"><b>{t("mainCard.balance")}</b></Typography>
                       </div>
                       
                       <Typography variant="h4" color="primary"><b>{formatAmount(balance, "USD", 2)} </b></Typography>
@@ -247,7 +252,7 @@ function Main(props) {
                           <Typography color="primary"><b>{formatAmount(totalIncome, "USD", 2)}</b></Typography>
                           <div style={{display:"inline-flex"}}>
                             <AddCircleOutlineIcon color="primary"/>
-                            <Typography color="primary"><b>Ingresos</b></Typography>
+                            <Typography color="primary"><b>{t("mainCard.income")}</b></Typography>
                           </div>
                         </div>
                         
@@ -255,7 +260,7 @@ function Main(props) {
                           <Typography color="error"><b>{formatAmount(totalExpenses, "USD", 2)}</b></Typography>
                           <div style={{display:"inline-flex"}}>
                             <RemoveCircleOutlineIcon color="error"/>
-                            <Typography color="error"><b>Gastos</b></Typography>
+                            <Typography color="error"><b>{t("mainCard.expenses")}</b></Typography>
                           </div>
                         </div>
                       </div>
@@ -308,7 +313,7 @@ function Main(props) {
                           </Menu>
                         </>
                       }
-                      title="Movimientos"
+                      title={t("movements.title")}
                     />
                     <CardContent>
                     
@@ -321,8 +326,8 @@ function Main(props) {
                       textColor="primary"
                       centered
                     >
-                      <Tab label="Ingresos" {...a11yProps(0)} />
-                      <Tab label="Gastos" {...a11yProps(1)} /> 
+                      <Tab label={t("movements.income")} {...a11yProps(0)} />
+                      <Tab label={t("movements.expenses")} {...a11yProps(1)} /> 
                     </Tabs>
                     <TabPanel value={value} index={0}>
                       <List>

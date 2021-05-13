@@ -1,0 +1,13 @@
+{
+    "appTitle":"Finanzapp",
+    "mainCard":{
+        "balance":"Balance",
+        "income":"Ingresos",
+        "expenses":"Gastos"
+    },
+    "movements":{
+        "title":"Movimientos",
+        "income":"Ingresos",
+        "expenses":"Gastos"
+    }
+}
