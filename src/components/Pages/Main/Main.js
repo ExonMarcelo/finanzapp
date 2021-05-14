@@ -211,8 +211,8 @@ function Main(props) {
   const confirmRemoveMovement = (type, idMovement) => {
     const dataConfirmDialog= {
       open: true,
-      title:"¡Atención!",
-      description: `¿Esta seguro de eliminar este ${(type === "income")? "ingreso" : "gasto" }?`,
+      title: t("confirmDialog.title"),
+      description: (type === "income")? t("confirmDialog.descriptionIncome") : t("confirmDialog.descriptionExpense"),
       fnOK: () => {
         removeMovement(type, idMovement);
       }
@@ -291,7 +291,7 @@ function Main(props) {
                             aria-haspopup="true"
                             onClick={handleMenu}
                             color="inherit" >
-                            <MoreVertIcon />
+                            <MoreVertIcon/>
                           </IconButton>
                           <Menu
                             id="menuMovements"
@@ -308,12 +308,12 @@ function Main(props) {
                             open={open}
                             onClose={handleClose}
                           >
-                            <MenuItem onClick={() => fnShowNewMovement("income")}>Agregar ingreso</MenuItem>
-                            <MenuItem onClick={() => fnShowNewMovement("expenses")}>Agregar gasto</MenuItem>
+                            <MenuItem onClick={() => fnShowNewMovement("income")}>{t("movements.menuItem1")}</MenuItem>
+                            <MenuItem onClick={() => fnShowNewMovement("expenses")}>{t("movements.menuItem2")}</MenuItem>
                           </Menu>
                         </>
                       }
-                      title={t("movements.title")}
+                      title={<Typography variant="h5" color="default" style={{fontWeight:"bolder"}}>{t("movements.title")}</Typography>}
                     />
                     <CardContent>
                     

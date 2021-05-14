@@ -8,6 +8,23 @@
     "movements":{
         "title":"Movemens",
         "income":"Income",
-        "expenses":"Expenses"
+        "expenses":"Expenses",
+        "menuItem1": "Add income",
+        "menuItem2": "Add expense"
+    },
+    "confirmDialog":{
+        "title":"Attention!",
+        "descriptionIncome":"Are you sure to delete this entry?",
+        "descriptionExpense":"Are you sure to eliminate this expense?"
+    },
+    "newMovemementDialog":{
+        "titleIncome":"New income",
+        "titleExpense":"New Expense",
+        "descriptionIncome":"This movement will be added to your income.",
+        "descriptionExpense":"This movement will be added to your expenses."
+    },
+    "languages":{
+        "es":"Spanish (ES)",
+        "en":"English (EN)"
     }
 }

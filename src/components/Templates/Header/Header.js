@@ -5,12 +5,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import LanguageIcon from '@material-ui/icons/Language';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+
+//import translations
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +33,8 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
+  const [t, i18n] = useTranslation("global");//specify file name
+
   const handleChange = (event) => {
     setAuth(event.target.checked);
   };
@@ -42,6 +47,11 @@ export default function Header() {
     setAnchorEl(null);
   };
 
+  const handleChangeLanguage = (lng) =>{
+    i18n.changeLanguage(lng);
+    handleClose();
+  }
+
   return (
     <div className={classes.root}>
       
@@ -51,21 +61,21 @@ export default function Header() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            FinanzApp
+            {t("appTitle")}
           </Typography>
           {auth && (
             <div>
               <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
+                aria-label="language"
+                aria-controls="menuLanguage"
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle />
+                <LanguageIcon />
               </IconButton>
               <Menu
-                id="menu-appbar"
+                id="menuLanguage"
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: 'top',
@@ -79,8 +89,8 @@ export default function Header() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={() => handleChangeLanguage("es")}>{t("languages.es")}</MenuItem>
+                <MenuItem onClick={() => handleChangeLanguage("en")}>{t("languages.en")}</MenuItem>
               </Menu>
             </div>
           )}

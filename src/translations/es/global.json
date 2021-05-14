@@ -8,6 +8,23 @@
     "movements":{
         "title":"Movimientos",
         "income":"Ingresos",
-        "expenses":"Gastos"
+        "expenses":"Gastos",
+        "menuItem1": "Agregar ingreso",
+        "menuItem2": "Agregar gasto"
+    },
+    "confirmDialog":{
+        "title":"¡Atención!",
+        "descriptionIncome":"¿Estás seguro de eliminar este ingreso?",
+        "descriptionExpense":"¿Estás seguro de eliminar este gasto?"
+    },
+    "newMovemementDialog":{
+        "titleIncome":"Nuevo ingreso",
+        "titleExpense":"Nuevo gasto",
+        "descriptionIncome":"Este movimiento se agregará a tus ingresos.",
+        "descriptionExpense":"Este movimiento se agregará a tus gastos"
+    },
+    "languages":{
+        "es":"Español (ES)",
+        "en":"Inglés (EN)"
     }
 }

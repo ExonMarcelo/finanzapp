@@ -18,6 +18,9 @@ import TextField from "@material-ui/core/TextField";
 //web services
 //import wsServices from "../../../webServices/wsServices";
 
+//import translations
+import {useTranslation} from "react-i18next";
+
 //global functions
 import { formatDateDayToYear, doClick } from "../../../helpers/globalFunctions";
 
@@ -40,6 +43,8 @@ function NewMovement(props) {
   const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
 
   const { handleSubmit, control, reset } = useForm();
+
+  const { t } = useTranslation("global");
   
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -100,6 +105,9 @@ function NewMovement(props) {
   }
 
   const generateID = (data) => {
+    if(data.length === 0){
+      return 1;
+    }
     const sorted = data.sort((a, b) => a.id - b.id);
     const lastID = sorted[sorted.length - 1].id;
     return  lastID + 1;
@@ -124,11 +132,11 @@ function NewMovement(props) {
       aria-labelledby="responsive-dialog-title"
     >
       <DialogTitle id="responsive-dialog-title">
-        Nuevo {type==="income"?"ingreso":"gasto"}
+        {type==="income"? t("newMovemementDialog.titleIncome") : t("newMovemementDialog.titleExpense")}
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Este movimiento se agregará a tus {type==="income"?"ingresos":"gastos"}
+          {type==="income"? t("newMovemementDialog.descriptionIncome") : t("newMovemementDialog.descriptionExpense")}
         </DialogContentText>
 
         <form onSubmit={handleSubmit(onSubmit)}>
