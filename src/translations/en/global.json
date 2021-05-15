@@ -17,11 +17,18 @@
         "descriptionIncome":"Are you sure to delete this entry?",
         "descriptionExpense":"Are you sure to eliminate this expense?"
     },
-    "newMovemementDialog":{
+    "newMovementDialog":{
         "titleIncome":"New income",
         "titleExpense":"New Expense",
         "descriptionIncome":"This movement will be added to your income.",
-        "descriptionExpense":"This movement will be added to your expenses."
+        "descriptionExpense":"This movement will be added to your expenses.",
+        "titleMessageSuccess":"Well!",
+        "messageSuccessIncome":"A movement was added to your income.",
+        "messageSuccessExpense":"A movement was added to your expenses.",
+        "labelDescription":"Description",
+        "labelAmount":"Amount",
+        "labelCategory":"Category",
+        "labelDate":"Date"
     },
     "languages":{
         "es":"Spanish (ES)",
@@ -34,5 +41,10 @@
         "register": "Register",
         "save": "Save",
         "ok": "OK"
+    },
+    "fieldValidations":{
+        "required": "This field is required.",
+        "maxLength":"The field must not be longer than {{cant}} characters.",
+        "minLength":"The field must not be less than {{cant}} characters."
     }
 }

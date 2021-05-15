@@ -17,11 +17,18 @@
         "descriptionIncome":"¿Estás seguro de eliminar este ingreso?",
         "descriptionExpense":"¿Estás seguro de eliminar este gasto?"
     },
-    "newMovemementDialog":{
+    "newMovementDialog":{
         "titleIncome":"Nuevo ingreso",
         "titleExpense":"Nuevo gasto",
         "descriptionIncome":"Este movimiento se agregará a tus ingresos.",
-        "descriptionExpense":"Este movimiento se agregará a tus gastos"
+        "descriptionExpense":"Este movimiento se agregará a tus gastos.",
+        "titleMessageSuccess":"¡Bien!",
+        "messageSuccessIncome":"Se agregó un movimiento a tus ingresos.",
+        "messageSuccessExpense":"Se agregó un movimiento a tus gastos.",
+        "labelDescription":"Descripción",
+        "labelAmount":"Monto",
+        "labelCategory":"Categoría",
+        "labelDate":"Fecha"
     },
     "languages":{
         "es":"Español (ES)",
@@ -34,5 +41,10 @@
         "register": "Registrar",
         "save": "Grabar",
         "ok": "OK"
+    },
+    "fieldValidations":{
+        "required": "Este campo es obligatorio.",
+        "maxLength":"El campo no debe ser mayor a {{cant}} caracteres.",
+        "minLength":"El campo no debe ser menor a {{cant}} caracteres."
     }
 }

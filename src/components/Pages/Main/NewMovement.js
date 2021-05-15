@@ -70,8 +70,8 @@ function NewMovement(props) {
     const {dataTemp, type} = props;
     showMessage({
       open: true,
-      title:"¡Bien!",
-      description: `Se agregó un movimiento a tus ${(type === "income")?"ingresos." : "gastos."}`,
+      title: t("newMovementDialog.titleMessageSuccess"),
+      description: (type === "income")? t("newMovementDialog.messageSuccessIncome") : t("newMovementDialog.messageSuccessExpense"),
       fnSuccess: () => {
         const newMovement = dataTemp[type];
         newMovement.push({
@@ -132,11 +132,11 @@ function NewMovement(props) {
       aria-labelledby="responsive-dialog-title"
     >
       <DialogTitle id="responsive-dialog-title">
-        {type==="income"? t("newMovemementDialog.titleIncome") : t("newMovemementDialog.titleExpense")}
+        {type==="income"? t("newMovementDialog.titleIncome") : t("newMovementDialog.titleExpense")}
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {type==="income"? t("newMovemementDialog.descriptionIncome") : t("newMovemementDialog.descriptionExpense")}
+          {type==="income"? t("newMovementDialog.descriptionIncome") : t("newMovementDialog.descriptionExpense")}
         </DialogContentText>
 
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -148,7 +148,7 @@ function NewMovement(props) {
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
                 style={styleInputs}
-                label="Descripción"
+                label={t("newMovementDialog.labelDescription")}
                 name="description"
                 variant="outlined"
                 autoFocus
@@ -159,7 +159,7 @@ function NewMovement(props) {
                 helperText={error ? error.message : null}
               />
             )}
-            rules={{ required: 'Este campo es obligatorio.', maxLength: {value:100, message:"El texto no debe ser mayor a 100 caracteres."} }}
+            rules={{ required: t("fieldValidations.required"), maxLength: {value:100, message: t("fieldValidations.maxLength", {cant: 100})} }}
           />
           
           <Controller
@@ -170,7 +170,7 @@ function NewMovement(props) {
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
                 style={styleInputs}
-                label="Monto"
+                label={t("newMovementDialog.labelAmount")}
                 name="amount"
                 variant="outlined"
                 fullWidth
@@ -181,7 +181,7 @@ function NewMovement(props) {
                 helperText={error ? error.message : null}
               />
             )}
-            rules={{ required: 'Este campo es obligatorio.', min: {value: 0, message: "El valor mínimo es 0"} }}
+            rules={{ required: t("fieldValidations.required"), min: {value: 0, message: t("fieldValidations.maxLength", {cant: 0})} }}
           />
           
           <Controller
@@ -192,7 +192,7 @@ function NewMovement(props) {
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
                 style={styleInputs}
-                label="Categoría"
+                label={t("newMovementDialog.labelCategory")}
                 name="category"
                 variant="outlined"
                 fullWidth
@@ -215,7 +215,7 @@ function NewMovement(props) {
                 }
               </TextField>
             )}
-            rules={{ required: 'Este campo es obligatorio.'}}
+            rules={{ required: t("fieldValidations.required")}}
           />
 
           <Controller
@@ -226,7 +226,7 @@ function NewMovement(props) {
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
                 style={styleInputs}
-                label="Fecha"
+                label={t("newMovementDialog.labelDate")}
                 name="date"
                 type="date"
                 variant="outlined"
@@ -240,7 +240,7 @@ function NewMovement(props) {
                 helperText={error ? error.message : null}
               />
             )}
-            rules={{ required: 'Este campo es obligatorio.'}}
+            rules={{ required: t("fieldValidations.required")}}
           />
           
           <Button type="submit" id="btnSubmit" style={{display:"none"}}>
@@ -250,7 +250,7 @@ function NewMovement(props) {
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancelar</Button>
+        <Button onClick={handleClose}>{t("globalButtons.cancel")}</Button>
         <Button onClick={() => {doClick("btnSubmit")}} variant="contained" color="primary">
           {t("globalButtons.register")}
         </Button>
