@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/finanzapp/static/css/main.979d6c6f.chunk.css",
-    "main.js": "/finanzapp/static/js/main.7b4fc84f.chunk.js",
-    "main.js.map": "/finanzapp/static/js/main.7b4fc84f.chunk.js.map",
-    "runtime-main.js": "/finanzapp/static/js/runtime-main.83787aab.js",
-    "runtime-main.js.map": "/finanzapp/static/js/runtime-main.83787aab.js.map",
-    "static/js/2.ac3d7a28.chunk.js": "/finanzapp/static/js/2.ac3d7a28.chunk.js",
-    "static/js/2.ac3d7a28.chunk.js.map": "/finanzapp/static/js/2.ac3d7a28.chunk.js.map",
-    "static/js/3.a8857f96.chunk.js": "/finanzapp/static/js/3.a8857f96.chunk.js",
-    "static/js/3.a8857f96.chunk.js.map": "/finanzapp/static/js/3.a8857f96.chunk.js.map",
+    "main.js": "/finanzapp/static/js/main.77dd578e.chunk.js",
+    "main.js.map": "/finanzapp/static/js/main.77dd578e.chunk.js.map",
+    "runtime-main.js": "/finanzapp/static/js/runtime-main.37ce2c1b.js",
+    "runtime-main.js.map": "/finanzapp/static/js/runtime-main.37ce2c1b.js.map",
+    "static/js/2.33d5b0db.chunk.js": "/finanzapp/static/js/2.33d5b0db.chunk.js",
+    "static/js/2.33d5b0db.chunk.js.map": "/finanzapp/static/js/2.33d5b0db.chunk.js.map",
+    "static/js/3.a6735757.chunk.js": "/finanzapp/static/js/3.a6735757.chunk.js",
+    "static/js/3.a6735757.chunk.js.map": "/finanzapp/static/js/3.a6735757.chunk.js.map",
     "index.html": "/finanzapp/index.html",
     "static/css/main.979d6c6f.chunk.css.map": "/finanzapp/static/css/main.979d6c6f.chunk.css.map",
-    "static/js/2.ac3d7a28.chunk.js.LICENSE.txt": "/finanzapp/static/js/2.ac3d7a28.chunk.js.LICENSE.txt"
+    "static/js/2.33d5b0db.chunk.js.LICENSE.txt": "/finanzapp/static/js/2.33d5b0db.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.83787aab.js",
-    "static/js/2.ac3d7a28.chunk.js",
+    "static/js/runtime-main.37ce2c1b.js",
+    "static/js/2.33d5b0db.chunk.js",
     "static/css/main.979d6c6f.chunk.css",
-    "static/js/main.7b4fc84f.chunk.js"
+    "static/js/main.77dd578e.chunk.js"
   ]
 }
