@@ -12,6 +12,9 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";*/
 import { Typography } from "@material-ui/core";
 
+//import translations
+import {useTranslation} from "react-i18next";
+
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -21,6 +24,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function SuccessDialog(props) {
   const { dataSuccessDialog } = props;
   const { open, title, description, fnSuccess } = dataSuccessDialog;
+
+  const {t} = useTranslation("global");
 
   const closeDialog = () => {
     const { dispatch, dataSuccessDialog } = props;
@@ -59,7 +64,7 @@ function SuccessDialog(props) {
           fullWidth
           style={{ backgroundColor: "#5db35d", color:"#fff" }}
         >
-          Continuar
+          {t("globalButtons.continue")}
         </Button>
       </DialogActions>
     </Dialog>

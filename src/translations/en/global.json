@@ -6,7 +6,7 @@
         "expenses":"Expenses"
     },
     "movements":{
-        "title":"Movemens",
+        "title":"Movements",
         "income":"Income",
         "expenses":"Expenses",
         "menuItem1": "Add income",
@@ -26,5 +26,13 @@
     "languages":{
         "es":"Spanish (ES)",
         "en":"English (EN)"
+    },
+    "globalButtons":{
+        "continue": "Continue",
+        "accept": "Accept",
+        "cancel": "Cancel",
+        "register": "Register",
+        "save": "Save",
+        "ok": "OK"
     }
 }

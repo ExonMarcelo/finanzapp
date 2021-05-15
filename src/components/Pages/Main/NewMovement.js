@@ -252,7 +252,7 @@ function NewMovement(props) {
       <DialogActions>
         <Button onClick={handleClose}>Cancelar</Button>
         <Button onClick={() => {doClick("btnSubmit")}} variant="contained" color="primary">
-          Registar
+          {t("globalButtons.register")}
         </Button>
       </DialogActions>
     </Dialog>

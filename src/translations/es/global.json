@@ -26,5 +26,13 @@
     "languages":{
         "es":"Español (ES)",
         "en":"Inglés (EN)"
+    },
+    "globalButtons":{
+        "continue": "Continuar",
+        "accept": "Aceptar",
+        "cancel": "Cancelar",
+        "register": "Registrar",
+        "save": "Grabar",
+        "ok": "OK"
     }
 }

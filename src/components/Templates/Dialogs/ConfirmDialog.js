@@ -12,6 +12,9 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";*/
 import { Typography } from "@material-ui/core";
 
+//import translations
+import {useTranslation} from "react-i18next";
+
 import AlertIcon from '@material-ui/icons/ReportProblem';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -21,6 +24,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function ConfirmDialog(props) {
   const { dataConfirmDialog } = props;
   const { open, title, description, fnOK } = dataConfirmDialog;
+  const {t} = useTranslation("global");
 
   const closeDialog = () => {
     const { dispatch, dataConfirmDialog } = props;
@@ -68,14 +72,14 @@ function ConfirmDialog(props) {
           variant="contained"
           color="default"
         >
-          Cancelar
+          {t("globalButtons.cancel")}
         </Button>
         <Button
           onClick={closeDialog}
           variant="contained"
           style={{ backgroundColor: "#ffc41b", color:"#fff" }}
         >
-          Continuar
+          {t("globalButtons.continue")}
         </Button>
       </DialogActions>
     </Dialog>

@@ -12,6 +12,9 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";*/
 import { Typography } from "@material-ui/core";
 
+//import translations
+import {useTranslation} from "react-i18next";
+
 import ErrorIcon from "@material-ui/icons/ErrorOutlineOutlined";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -21,6 +24,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function ErrorDialog(props) {
   const { dataErrorDialog } = props;
   const { open, title, description, fnError } = dataErrorDialog;
+  const {t} = useTranslation("gobal");
 
   const closeDialog = () => {
     const { dispatch, dataErrorDialog } = props;
@@ -59,7 +63,7 @@ function ErrorDialog(props) {
           fullWidth
           style={{ backgroundColor: "#e86039", color:"#fff" }}
         >
-          OK
+          {t("globalButtons.ok")}
         </Button>
       </DialogActions>
     </Dialog>
